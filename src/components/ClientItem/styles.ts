@@ -2,49 +2,40 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    flex: 1,
+    backgroundColor: "#BCBDC0",
     borderWidth: 1,
-    borderColor: "#e6e6f0",
+    borderColor: "#BCBDC0",
     borderRadius: 8,
     marginBottom: 16,
-    overflow: "hidden",
-  },
-  profile: {
-    flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     padding: 24,
+    width: "90%",
+    alignSelf: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
-  avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: "#eee",
-  },
-  profileInfo: {
-    marginLeft: 16,
-  },
-  name: {
+  label: {
     fontFamily: "Roboto_700Bold",
-    color: "#32264d",
-    fontSize: 20,
+    color: "#023E8A",
+    fontSize: 18,
   },
-  birthday: {
-    fontFamily: "Roboto_400Regular",
-    color: "#6a6180",
-    fontSize: 12,
-    marginTop: 4,
-  },
-  address: {
+  output: {
     marginHorizontal: 24,
     fontFamily: "Roboto_400Regular",
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 24,
-    color: "#6a6180",
+    color: "#023E8A",
   },
-  marital_status_id: {
-    fontFamily: "Roboto_700Bold",
-    color: "#32264d",
-    fontSize: 20,
+  lastItem: {
+    marginBottom: 16,
   },
 });
 

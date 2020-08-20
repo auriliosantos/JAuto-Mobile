@@ -7,11 +7,9 @@ import {
   TextInput,
   TouchableOpacity,
   Animated,
-  Alert,
+  Keyboard,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-import api from "../../services/api";
 import AuthContext from "../../contexts/auth";
 import logoImg from "../../assets/images/logo.png";
 import styles from "./styles";
@@ -20,6 +18,7 @@ const Signin: React.FC = () => {
   const { signIn } = useContext(AuthContext);
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }));
   const [opacity] = useState(new Animated.Value(0));
+  const [logo] = useState(new Animated.ValueXY({ x: 216, y: 258 }));
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,6 +27,15 @@ const Signin: React.FC = () => {
   }
 
   useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      keyboardDidShow
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHide
+    );
+
     Animated.parallel([
       Animated.spring(offset.y, {
         useNativeDriver: true,
@@ -42,10 +50,42 @@ const Signin: React.FC = () => {
       }),
     ]).start();
   }, []);
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(logo.x, {
+        useNativeDriver: false,
+        toValue: 108,
+        duration: 200,
+      }),
+      Animated.timing(logo.y, {
+        useNativeDriver: false,
+        toValue: 129,
+        duration: 200,
+      }),
+    ]).start();
+  }
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(logo.x, {
+        useNativeDriver: false,
+        toValue: 219,
+        duration: 200,
+      }),
+      Animated.timing(logo.y, {
+        useNativeDriver: false,
+        toValue: 258,
+        duration: 200,
+      }),
+    ]).start();
+  }
+
   return (
     <KeyboardAvoidingView style={styles.background}>
       <View style={styles.containerLogo}>
-        <Image source={logoImg} />
+        <Animated.Image
+          style={{ width: logo.x, height: logo.y }}
+          source={logoImg}
+        />
       </View>
       <Animated.View
         style={[

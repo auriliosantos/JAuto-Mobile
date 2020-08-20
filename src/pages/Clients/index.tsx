@@ -6,6 +6,7 @@ import AuthContext from "../../contexts/auth";
 import styles from "./styles";
 
 import api from "../../services/api";
+import PageHeader from "../../components/PageHeader";
 
 const Clients: React.FC = () => {
   const { signed } = useContext(AuthContext);
@@ -22,17 +23,18 @@ const Clients: React.FC = () => {
   }, [signed]);
 
   return (
-    <View style={styles.container}>
-      <Text>Clients</Text>
-
-      <FlatList
-        data={clients}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={({ item: client }) => (
-          <ClientItem client={client} clientsInfo={clientsInfo} />
-        )}
-      />
-    </View>
+    <>
+      <PageHeader title="Clientes" />
+      <View style={styles.container}>
+        <FlatList
+          data={clients}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={({ item: client }) => (
+            <ClientItem client={client} clientsInfo={clientsInfo} />
+          )}
+        />
+      </View>
+    </>
   );
 };
 

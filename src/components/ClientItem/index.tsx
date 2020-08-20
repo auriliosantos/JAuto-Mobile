@@ -7,12 +7,13 @@ import unfavoriteIcon from "../../assets/images/icons/unfavorite.png";
 import whatsappIcon from "../../assets/images/icons/whatsapp.png";
 
 import styles from "./styles";
+import dateFormater from "../../utils/dateFormater";
 
 export interface Client {
   id: number;
   name: string;
   address: string;
-  birthday: number;
+  birthday: string;
   marital_status_id: number;
 }
 
@@ -29,14 +30,28 @@ interface ClientItemProps {
 const ClientItem: React.FC<ClientItemProps> = ({ client, clientsInfo }) => {
   const find = clientsInfo.find((item) => item.id === client.marital_status_id);
   const marital_status_name = find?.name;
+
+  const formatedDate = dateFormater(client.birthday);
   return (
-    <View style={styles.container}>
-      <View style={styles.profile}>
-        <View style={styles.profileInfo}>
-          <Text style={styles.name}>{client.name}</Text>
-          <Text style={styles.address}>{client.address}</Text>
-          <Text style={styles.birthday}>{client.birthday}</Text>
-          <Text style={styles.marital_status_id}>{marital_status_name}</Text>
+    <View>
+      <View style={styles.container}>
+        <View>
+          <Text style={styles.label}>Nome:</Text>
+          <Text style={styles.output}>{client.name}</Text>
+        </View>
+        <View>
+          <Text style={styles.label}>Endereço: </Text>
+          <Text style={styles.output}>{client.address}</Text>
+        </View>
+        <View>
+          <Text style={styles.label}>Data de nascimento:</Text>
+          <Text style={styles.output}>{formatedDate}</Text>
+        </View>
+        <View>
+          <Text style={styles.label}>Estado Civil</Text>
+          <Text style={[styles.output, styles.lastItem]}>
+            {marital_status_name}
+          </Text>
         </View>
       </View>
     </View>

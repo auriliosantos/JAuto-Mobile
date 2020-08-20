@@ -3,8 +3,8 @@ import { View, Image, Text } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
-import backIcon from "../../assets/images/icons/back.png";
-import logoImg from "../../assets/images/logo.png";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import logoImg from "../../assets/images/tinyLogo.png";
 
 import styles from "./styles";
 
@@ -21,14 +21,14 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   const { navigate } = useNavigation();
 
   function handleGoBack() {
-    navigate("Landing");
+    navigate("Signin");
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
         <BorderlessButton onPress={handleGoBack}>
-          <Image source={backIcon} resizeMode="contain" />
+          <SimpleLineIcons name="action-undo" size={32} color="#C2E812" />
         </BorderlessButton>
 
         <Image source={logoImg} resizeMode="contain" />

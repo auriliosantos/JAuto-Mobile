@@ -13,15 +13,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   title: {
     fontFamily: "Roboto_700Bold",
-    color: "#fff",
+    color: "#BCBDC0",
     fontSize: 24,
     lineHeight: 32,
     maxWidth: 160,
-    marginVertical: 40,
   },
 });
 
