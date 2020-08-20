@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 
 import ClientItem, { Client, ClientInfo } from "../../components/ClientItem";
 import AuthContext from "../../contexts/auth";

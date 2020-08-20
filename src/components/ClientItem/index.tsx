@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import { View, Image, Text, Linking } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
-
-import heartOutlineIcon from "../../assets/images/icons/heart-outline.png";
-import unfavoriteIcon from "../../assets/images/icons/unfavorite.png";
-import whatsappIcon from "../../assets/images/icons/whatsapp.png";
+import React from "react";
+import { View, Text } from "react-native";
 
 import styles from "./styles";
 import dateFormater from "../../utils/dateFormater";
