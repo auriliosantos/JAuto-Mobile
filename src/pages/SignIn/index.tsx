@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -10,31 +10,21 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import api from "../../services/api";
 
+import api from "../../services/api";
+import AuthContext from "../../contexts/auth";
 import logoImg from "../../assets/images/logo.png";
 import styles from "./styles";
 
-function Landing() {
+const Signin: React.FC = () => {
+  const { signIn } = useContext(AuthContext);
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }));
   const [opacity] = useState(new Animated.Value(0));
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const { navigate } = useNavigation();
 
-  async function handleSubmit() {
-    try {
-      const response = await api.post("/auth/login", {
-        name,
-        password,
-      });
-      console.log(response.data);
-      navigate("CRUDTabs", response.data);
-    } catch (err) {
-      Alert.alert("Erro no login", "Nome ou senha incorretos, tente novamente");
-    }
-
-    /* navigate("CRUDTabs"); */
+  function handleSignIn() {
+    signIn(name, password);
   }
 
   useEffect(() => {
@@ -76,17 +66,15 @@ function Landing() {
           style={styles.input}
           placeholder="Senha"
           autoCorrect={false}
+          secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
         />
-        <TouchableOpacity
-          style={styles.btnSubmit}
-          onPress={() => handleSubmit()}
-        >
+        <TouchableOpacity style={styles.btnSubmit} onPress={handleSignIn}>
           <Text style={styles.submitText}>Acessar</Text>
         </TouchableOpacity>
       </Animated.View>
     </KeyboardAvoidingView>
   );
-}
+};
 
-export default Landing;
+export default Signin;

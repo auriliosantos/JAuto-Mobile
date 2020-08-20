@@ -8,7 +8,7 @@ import VehiclesStack from "./VehiclesStack";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-function CRUDTabs() {
+const AppRoutes: React.FC = () => {
   return (
     <Navigator
       tabBarOptions={{
@@ -52,6 +52,6 @@ function CRUDTabs() {
       />
     </Navigator>
   );
-}
+};
 
-export default CRUDTabs;
+export default AppRoutes;

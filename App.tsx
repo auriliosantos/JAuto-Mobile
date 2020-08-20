@@ -6,10 +6,12 @@ import {
   Roboto_700Bold,
   useFonts,
 } from "@expo-google-fonts/roboto";
+import { NavigationContainer } from "@react-navigation/native";
 
-import MainStack from "./src/routes/MainStack";
+import { AuthProvider } from "./src/contexts/auth";
+import Routes from "./src/Routes";
 
-export default function App() {
+const App: React.FC = () => {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
@@ -19,9 +21,15 @@ export default function App() {
   } else {
     return (
       <>
-        <MainStack />
+        <NavigationContainer>
+          <AuthProvider>
+            <Routes />
+          </AuthProvider>
+        </NavigationContainer>
         <StatusBar style="light" />
       </>
     );
   }
-}
+};
+
+export default App;
