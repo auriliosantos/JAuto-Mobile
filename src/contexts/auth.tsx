@@ -7,6 +7,7 @@ interface AuthContextData {
   signed: boolean;
   loading: boolean;
   signIn(name: string, password: string): Promise<void>;
+  signOut(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -43,8 +44,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }
 
+  async function signOut() {
+    setSigned(false);
+  }
+
   return (
-    <AuthContext.Provider value={{ signed, signIn, loading }}>
+    <AuthContext.Provider value={{ signed, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
