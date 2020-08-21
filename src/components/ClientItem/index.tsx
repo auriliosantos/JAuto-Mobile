@@ -35,7 +35,7 @@ const ClientItem: React.FC<ClientItemProps> = ({ client, clientsInfo }) => {
           <Text style={styles.output}>{client.name}</Text>
         </View>
         <View>
-          <Text style={styles.label}>Endereço: </Text>
+          <Text style={styles.label}>Endereço:</Text>
           <Text style={styles.output}>{client.address}</Text>
         </View>
         <View>
@@ -43,7 +43,7 @@ const ClientItem: React.FC<ClientItemProps> = ({ client, clientsInfo }) => {
           <Text style={styles.output}>{formatedDate}</Text>
         </View>
         <View>
-          <Text style={styles.label}>Estado Civil</Text>
+          <Text style={styles.label}>Estado Civil:</Text>
           <Text style={[styles.output, styles.lastItem]}>
             {marital_status_name}
           </Text>

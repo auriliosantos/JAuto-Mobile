@@ -22,7 +22,7 @@ const InsurerItem: React.FC<InsurerItemProps> = ({ insurer }) => {
           <Text style={styles.output}>{insurer.name}</Text>
         </View>
         <View>
-          <Text style={styles.label}>Asistência 24hrs: </Text>
+          <Text style={styles.label}>Asistência 24hrs:</Text>
           <Text style={styles.output}>{insurer.support_phone}</Text>
         </View>
       </View>

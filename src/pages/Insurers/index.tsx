@@ -2,14 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, FlatList } from "react-native";
 
 import InsurerItem, { Insurer } from "../../components/InsurerItem";
-import AuthContext from "../../contexts/auth";
 import styles from "./styles";
 
 import api from "../../services/api";
 import PageHeader from "../../components/PageHeader";
 
 const Insurers: React.FC = () => {
-  const { signed } = useContext(AuthContext);
   const [insurers, setInsurers] = useState<Insurer[]>([]);
 
   useEffect(() => {
@@ -18,7 +16,7 @@ const Insurers: React.FC = () => {
       setInsurers(response.data.insurers);
     }
     loadInsurers();
-  }, [signed]);
+  }, []);
 
   return (
     <>
