@@ -28,7 +28,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
     <View style={styles.container}>
       <View style={styles.topBar}>
         <BorderlessButton onPress={handleSignOut}>
-          <SimpleLineIcons name="action-undo" size={32} color="#C2E812" />
+          <SimpleLineIcons name="arrow-left-circle" size={32} color="#C2E812" />
         </BorderlessButton>
 
         <Image source={logoImg} resizeMode="contain" />
@@ -36,6 +36,14 @@ const PageHeader: React.FC<PageHeaderProps> = ({
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
         {headerRight}
+      </View>
+      <View style={styles.buttonBar}>
+        <BorderlessButton onPress={() => {}}>
+          <SimpleLineIcons name="plus" size={32} color="#C2E812" />
+        </BorderlessButton>
+        <BorderlessButton onPress={() => {}}>
+          <SimpleLineIcons name="magnifier" size={32} color="#C2E812" />
+        </BorderlessButton>
       </View>
 
       {children}

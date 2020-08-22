@@ -3,29 +3,21 @@ import { View, Text } from "react-native";
 
 import styles from "./styles";
 import dateFormater from "../../utils/dateFormater";
+import ButtonsBar from "../ButtonsBar";
 
 export interface Client {
   id: number;
   name: string;
   address: string;
   birthday: string;
-  marital_status_id: number;
-}
-
-export interface ClientInfo {
-  id: number;
-  name: string;
+  marital_status: string;
 }
 
 interface ClientItemProps {
   client: Client;
-  clientsInfo: ClientInfo[];
 }
 
-const ClientItem: React.FC<ClientItemProps> = ({ client, clientsInfo }) => {
-  const find = clientsInfo.find((item) => item.id === client.marital_status_id);
-  const marital_status_name = find?.name;
-
+const ClientItem: React.FC<ClientItemProps> = ({ client }) => {
   const formatedDate = dateFormater(client.birthday);
   return (
     <View>
@@ -45,10 +37,11 @@ const ClientItem: React.FC<ClientItemProps> = ({ client, clientsInfo }) => {
         <View>
           <Text style={styles.label}>Estado Civil:</Text>
           <Text style={[styles.output, styles.lastItem]}>
-            {marital_status_name}
+            {client.marital_status}
           </Text>
         </View>
       </View>
+      <ButtonsBar />
     </View>
   );
 };

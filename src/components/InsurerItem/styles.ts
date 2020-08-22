@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#BCBDC0",
     borderRadius: 8,
-    marginBottom: 16,
     alignItems: "flex-start",
     padding: 24,
     width: 340,

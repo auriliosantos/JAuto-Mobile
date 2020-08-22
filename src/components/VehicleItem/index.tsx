@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 
 import styles from "./styles";
-import { Client } from "../ClientItem";
+import ButtonsBar from "../ButtonsBar";
 
 export interface Vehicle {
   id: number;
@@ -10,35 +10,15 @@ export interface Vehicle {
   model: string;
   chassis: string;
   plate: string;
-  usage_type_id: number;
-  owner_id: number;
-}
-
-export interface VehiclesInfo {
-  usage_types: Usage_types[];
-  clients: Client[];
-}
-
-export interface Usage_types {
-  id: number;
-  name: string;
+  usage_type: string;
+  owner: string;
 }
 
 interface VehicleItemProps {
   vehicle: Vehicle;
-  vehiclesInfo: VehiclesInfo;
 }
 
-const VehicleItem: React.FC<VehicleItemProps> = ({ vehicle, vehiclesInfo }) => {
-  const utFind = vehiclesInfo.usage_types.find(
-    (item) => item.id === vehicle.usage_type_id
-  );
-  const usage_type_name = utFind?.name;
-
-  const ownerFind = vehiclesInfo.clients.find(
-    (item) => item.id === vehicle.owner_id
-  );
-  const owner_name = ownerFind?.name;
+const VehicleItem: React.FC<VehicleItemProps> = ({ vehicle }) => {
   return (
     <View>
       <View style={styles.container}>
@@ -60,13 +40,14 @@ const VehicleItem: React.FC<VehicleItemProps> = ({ vehicle, vehiclesInfo }) => {
         </View>
         <View>
           <Text style={styles.label}>Tipo de uso:</Text>
-          <Text style={styles.output}>{usage_type_name}</Text>
+          <Text style={styles.output}>{vehicle.usage_type}</Text>
         </View>
         <View>
-          <Text style={styles.label}>Dono:</Text>
-          <Text style={styles.output}>{owner_name}</Text>
+          <Text style={styles.label}>Dono(a):</Text>
+          <Text style={styles.output}>{vehicle.owner}</Text>
         </View>
       </View>
+      <ButtonsBar />
     </View>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 
 import styles from "./styles";
+import ButtonsBar from "../ButtonsBar";
 
 export interface Insurer {
   id: number;
@@ -26,6 +27,7 @@ const InsurerItem: React.FC<InsurerItemProps> = ({ insurer }) => {
           <Text style={styles.output}>{insurer.support_phone}</Text>
         </View>
       </View>
+      <ButtonsBar />
     </View>
   );
 };

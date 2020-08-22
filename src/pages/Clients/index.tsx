@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useContext } from "react";
-import { View, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, FlatList, ActivityIndicator } from "react-native";
 
-import ClientItem, { Client, ClientInfo } from "../../components/ClientItem";
+import ClientItem, { Client } from "../../components/ClientItem";
 import styles from "./styles";
 
 import api from "../../services/api";
 import PageHeader from "../../components/PageHeader";
 
 const Clients: React.FC = () => {
+  const [isMounting, setIsMounting] = useState(true);
   const [clients, setClients] = useState<Client[]>([]);
-  const [clientsInfo, setClientsInfo] = useState<ClientInfo[]>([]);
 
   useEffect(() => {
     async function loadClients() {
       const response = await api.get("/clients");
-      setClientsInfo(response.data.clientsInfo);
       setClients(response.data.clients);
+      setIsMounting(false);
     }
     loadClients();
   }, []);
@@ -24,13 +24,15 @@ const Clients: React.FC = () => {
     <>
       <PageHeader title="Clientes" />
       <View style={styles.container}>
-        <FlatList
-          data={clients}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={({ item: client }) => (
-            <ClientItem client={client} clientsInfo={clientsInfo} />
-          )}
-        />
+        {isMounting ? (
+          <ActivityIndicator size="large" color="#023E8A" />
+        ) : (
+          <FlatList
+            data={clients}
+            keyExtractor={(item) => `${item.id}`}
+            renderItem={({ item: client }) => <ClientItem client={client} />}
+          />
+        )}
       </View>
     </>
   );

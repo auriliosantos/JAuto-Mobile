@@ -1,37 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
 
-import InsuranceItem, {
-  Insurance,
-  InsurancesInfo,
-  Deductible_type,
-  Payment_method,
-} from "../../components/InsuranceItem";
-import { Insurer } from "../../components/InsurerItem";
-import { Vehicle } from "../../components/VehicleItem";
+import { Insurance } from "../../components/InsuranceItem";
 import styles from "./styles";
 
 import api from "../../services/api";
 import PageHeader from "../../components/PageHeader";
+import InsuranceBrief from "../../components/InsuranceBrief";
 
 const Insurances: React.FC = () => {
+  const [isMounting, setIsMounting] = useState(true);
   const [insurances, setInsurances] = useState<Insurance[]>([]);
-  const [insurancesInfo, setInsurancesInfo] = useState<InsurancesInfo>(
-    {} as InsurancesInfo
-  );
 
   useEffect(() => {
     async function loadInsurances() {
       const response = await api.get("/insurances");
-      setInsurancesInfo({
-        insurers: response.data.insurancesInfo.insurers as Insurer[],
-        vehicles: response.data.insurancesInfo.vehicles as Vehicle[],
-        deductible_types: response.data.insurancesInfo
-          .deductible_types as Deductible_type[],
-        payment_methods: response.data.insurancesInfo
-          .payment_methods as Payment_method[],
-      });
       setInsurances(response.data.insurances);
+      setIsMounting(false);
     }
     loadInsurances();
   }, []);
@@ -40,16 +25,17 @@ const Insurances: React.FC = () => {
     <>
       <PageHeader title="Seguros" />
       <View style={styles.container}>
-        <FlatList
-          data={insurances}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={({ item: insurance }) => (
-            <InsuranceItem
-              insurance={insurance}
-              insurancesInfo={insurancesInfo}
-            />
-          )}
-        />
+        {isMounting ? (
+          <ActivityIndicator size="large" color="#023E8A" />
+        ) : (
+          <FlatList
+            data={insurances}
+            keyExtractor={(item) => `${item.id}`}
+            renderItem={({ item: insurance }) => (
+              <InsuranceBrief insurance={insurance} />
+            )}
+          />
+        )}
       </View>
     </>
   );
