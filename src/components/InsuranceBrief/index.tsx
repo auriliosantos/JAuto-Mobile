@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 import dateFormater from "../../utils/dateFormater";
@@ -25,13 +26,22 @@ export interface Insurance {
 
 interface InsuranceBriefProps {
   insurance: Insurance;
+  loadInsurances(): void;
 }
 
-const InsuranceBrief: React.FC<InsuranceBriefProps> = ({ insurance }) => {
+const InsuranceBrief: React.FC<InsuranceBriefProps> = ({
+  insurance,
+  loadInsurances,
+}) => {
   const [plateExists, setPlateExists] = useState(true);
+  const { navigate } = useNavigation();
   const endFormated = dateFormater(insurance.validity_end);
 
   if (insurance.vehicle_plate.length <= 0) setPlateExists(false);
+
+  function handleDetailsBTN() {
+    navigate("InsurancesDetail", { insurance, loadInsurances });
+  }
   return (
     <View>
       <View style={styles.container}>
@@ -57,7 +67,7 @@ const InsuranceBrief: React.FC<InsuranceBriefProps> = ({ insurance }) => {
       </View>
       <View style={styles.buttonsBar}>
         <View>
-          <TouchableOpacity style={styles.buttons} onPress={() => {}}>
+          <TouchableOpacity style={styles.buttons} onPress={handleDetailsBTN}>
             <SimpleLineIcons
               style={styles.icon}
               name="options"

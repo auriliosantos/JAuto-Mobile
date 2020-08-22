@@ -15,9 +15,10 @@ export interface Client {
 
 interface ClientItemProps {
   client: Client;
+  loadClients(): void;
 }
 
-const ClientItem: React.FC<ClientItemProps> = ({ client }) => {
+const ClientItem: React.FC<ClientItemProps> = ({ client, loadClients }) => {
   const formatedDate = dateFormater(client.birthday);
   return (
     <View>
@@ -41,7 +42,12 @@ const ClientItem: React.FC<ClientItemProps> = ({ client }) => {
           </Text>
         </View>
       </View>
-      <ButtonsBar />
+      <ButtonsBar
+        id={client.id}
+        entity="Clients"
+        item={client}
+        loadFunc={loadClients}
+      />
     </View>
   );
 };

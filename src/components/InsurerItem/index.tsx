@@ -12,9 +12,10 @@ export interface Insurer {
 
 interface InsurerItemProps {
   insurer: Insurer;
+  loadInsurers(): void;
 }
 
-const InsurerItem: React.FC<InsurerItemProps> = ({ insurer }) => {
+const InsurerItem: React.FC<InsurerItemProps> = ({ insurer, loadInsurers }) => {
   return (
     <View style={styles.root}>
       <View style={styles.container}>
@@ -27,7 +28,12 @@ const InsurerItem: React.FC<InsurerItemProps> = ({ insurer }) => {
           <Text style={styles.output}>{insurer.support_phone}</Text>
         </View>
       </View>
-      <ButtonsBar />
+      <ButtonsBar
+        id={insurer.id}
+        entity="Insurers"
+        item={insurer}
+        loadFunc={loadInsurers}
+      />
     </View>
   );
 };

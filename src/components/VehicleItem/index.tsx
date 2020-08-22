@@ -16,9 +16,10 @@ export interface Vehicle {
 
 interface VehicleItemProps {
   vehicle: Vehicle;
+  loadVehicles(): void;
 }
 
-const VehicleItem: React.FC<VehicleItemProps> = ({ vehicle }) => {
+const VehicleItem: React.FC<VehicleItemProps> = ({ vehicle, loadVehicles }) => {
   return (
     <View>
       <View style={styles.container}>
@@ -47,7 +48,12 @@ const VehicleItem: React.FC<VehicleItemProps> = ({ vehicle }) => {
           <Text style={styles.output}>{vehicle.owner}</Text>
         </View>
       </View>
-      <ButtonsBar />
+      <ButtonsBar
+        id={vehicle.id}
+        entity="Vehicles"
+        item={vehicle}
+        loadFunc={loadVehicles}
+      />
     </View>
   );
 };

@@ -11,12 +11,14 @@ const Vehicles: React.FC = () => {
   const [isMounting, setIsMounting] = useState(true);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
+  async function loadVehicles() {
+    setIsMounting(true);
+    const response = await api.get("/vehicles");
+    setVehicles(response.data.vehicles);
+    setIsMounting(false);
+  }
+
   useEffect(() => {
-    async function loadVehicles() {
-      const response = await api.get("/vehicles");
-      setVehicles(response.data.vehicles);
-      setIsMounting(false);
-    }
     loadVehicles();
   }, []);
 
@@ -31,7 +33,7 @@ const Vehicles: React.FC = () => {
             data={vehicles}
             keyExtractor={(item) => `${item.id}`}
             renderItem={({ item: vehicle }) => (
-              <VehicleItem vehicle={vehicle} />
+              <VehicleItem vehicle={vehicle} loadVehicles={loadVehicles} />
             )}
           />
         )}

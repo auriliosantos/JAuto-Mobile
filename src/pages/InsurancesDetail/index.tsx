@@ -1,14 +1,17 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 
 import styles from "./styles";
+import InsuranceItem from "../../components/InsuranceItem";
 
-function InsurancesDetail() {
+const InsurancesDetail: React.FC = ({ route }: any) => {
+  const { insurance, loadInsurances } = route.params;
+
   return (
     <View style={styles.container}>
-      <Text>InsurancesDetail</Text>
+      <InsuranceItem insurance={insurance} loadInsurances={loadInsurances} />
     </View>
   );
-}
+};
 
 export default InsurancesDetail;

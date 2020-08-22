@@ -12,12 +12,14 @@ const Insurances: React.FC = () => {
   const [isMounting, setIsMounting] = useState(true);
   const [insurances, setInsurances] = useState<Insurance[]>([]);
 
+  async function loadInsurances() {
+    setIsMounting(true);
+    const response = await api.get("/insurances");
+    setInsurances(response.data.insurances);
+    setIsMounting(false);
+  }
+
   useEffect(() => {
-    async function loadInsurances() {
-      const response = await api.get("/insurances");
-      setInsurances(response.data.insurances);
-      setIsMounting(false);
-    }
     loadInsurances();
   }, []);
 
@@ -32,7 +34,10 @@ const Insurances: React.FC = () => {
             data={insurances}
             keyExtractor={(item) => `${item.id}`}
             renderItem={({ item: insurance }) => (
-              <InsuranceBrief insurance={insurance} />
+              <InsuranceBrief
+                insurance={insurance}
+                loadInsurances={loadInsurances}
+              />
             )}
           />
         )}

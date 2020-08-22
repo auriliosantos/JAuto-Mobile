@@ -1,14 +1,48 @@
 import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, Alert } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
+import api from "../../services/api";
 
-const ButtonsBar: React.FC = () => {
+export interface ButtonsBarProps {
+  id: number;
+  entity: string;
+  item: object;
+  loadFunc(): void;
+}
+
+const ButtonsBar: React.FC<ButtonsBarProps> = ({
+  id,
+  entity,
+  item,
+  loadFunc,
+}) => {
+  const { navigate } = useNavigation();
+  function handleChangeBTN() {
+    navigate(`${entity}Persist`, item);
+  }
+  function handleDeleteBTN() {
+    Alert.alert("Atenção", "Deseja realmente apagar? (ação irreversível)", [
+      {
+        text: "Ok",
+        onPress: del,
+      },
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+    ]);
+  }
+  async function del() {
+    await api.delete(`/${entity.toLowerCase()}/${id}`);
+    loadFunc();
+  }
   return (
     <View style={styles.buttonsBar}>
       <View>
-        <TouchableOpacity style={styles.buttons} onPress={() => {}}>
+        <TouchableOpacity style={styles.buttons} onPress={handleChangeBTN}>
           <SimpleLineIcons
             style={styles.icon}
             name="refresh"
@@ -19,7 +53,7 @@ const ButtonsBar: React.FC = () => {
         </TouchableOpacity>
       </View>
       <View>
-        <TouchableOpacity style={styles.buttons} onPress={() => {}}>
+        <TouchableOpacity style={styles.buttons} onPress={handleDeleteBTN}>
           <SimpleLineIcons
             style={styles.icon}
             name="trash"

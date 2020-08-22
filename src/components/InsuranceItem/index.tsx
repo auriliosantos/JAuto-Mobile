@@ -23,11 +23,15 @@ export interface Insurance {
   client: string;
 }
 
-interface InsuranceItemProps {
+export interface InsuranceItemProps {
   insurance: Insurance;
+  loadInsurances(): void;
 }
 
-const InsuranceItem: React.FC<InsuranceItemProps> = ({ insurance }) => {
+const InsuranceItem: React.FC<InsuranceItemProps> = ({
+  insurance,
+  loadInsurances,
+}) => {
   const startFormated = dateFormater(insurance.validity_start);
   const endFormated = dateFormater(insurance.validity_end);
   return (
@@ -90,7 +94,12 @@ const InsuranceItem: React.FC<InsuranceItemProps> = ({ insurance }) => {
           <Text style={styles.output}>{insurance.client}</Text>
         </View>
       </View>
-      <ButtonsBar />
+      <ButtonsBar
+        id={insurance.id}
+        entity="Insurances"
+        item={insurance}
+        loadFunc={loadInsurances}
+      />
     </View>
   );
 };

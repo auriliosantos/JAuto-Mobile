@@ -11,12 +11,14 @@ const Clients: React.FC = () => {
   const [isMounting, setIsMounting] = useState(true);
   const [clients, setClients] = useState<Client[]>([]);
 
+  async function loadClients() {
+    setIsMounting(true);
+    const response = await api.get("/clients");
+    setClients(response.data.clients);
+    setIsMounting(false);
+  }
+
   useEffect(() => {
-    async function loadClients() {
-      const response = await api.get("/clients");
-      setClients(response.data.clients);
-      setIsMounting(false);
-    }
     loadClients();
   }, []);
 
@@ -30,7 +32,9 @@ const Clients: React.FC = () => {
           <FlatList
             data={clients}
             keyExtractor={(item) => `${item.id}`}
-            renderItem={({ item: client }) => <ClientItem client={client} />}
+            renderItem={({ item: client }) => (
+              <ClientItem client={client} loadClients={loadClients} />
+            )}
           />
         )}
       </View>
